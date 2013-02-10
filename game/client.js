@@ -12,10 +12,10 @@ var Client = IgeClass.extend({
 		ige.input.debug(true);
 
 		// Load the fairy texture and store it in the gameTexture array
-		gameTexture[0] = new IgeTexture('../ige/examples/assets/textures/sprites/fairy.png');
+		gameTexture[0] = new IgeCellSheet('assets/tile.png', 20, 20);
 
 		// Load a smart texture
-		gameTexture[1] = new IgeTexture('../ige/examples/assets/textures/smartTextures/simpleBox.js');
+		//gameTexture[1] = new IgeTexture('../ige/examples/assets/textures/smartTextures/simpleBox.js');
 
 		// Wait for our textures to load before continuing
 		ige.on('texturesLoaded', function () {
@@ -40,40 +40,26 @@ var Client = IgeClass.extend({
 						.drawBounds(true)
 						.mount(ige);
 
-					// Create an entity and mount it to the scene
-					// (the class Rotator is declared in ./gameClasses/Rotator.js)
-					self.obj[0] = new Rotator()
-						.id('fairy1')
-						.depth(1)
-						.width(100)
-						.height(100)
-						.texture(gameTexture[0])
-						.translateTo(0, 0, 0)
-						.mount(self.scene1);
+					self.textureMap = new IgeTextureMap(10,10)
+						.tileWidth(32)
+						.tileHeight(32)
+						.drawGrid(10);
 
-					// Create a second rotator entity and mount
-					// it to the first one at 0, 50 relative to the
-					// parent
-					self.obj[1] = new Rotator()
-						.id('fairy2')
-						.depth(1)
-						.width(50)
-						.height(50)
-						.texture(gameTexture[0])
-						.translateTo(0, 50, 0)
-						.mount(self.obj[0]);
+					self.textureMap.addTexture(gameTexture[0]);
 
-					// Create a third rotator entity and mount
-					// it to the first on at 0, -50 relative to the
-					// parent, but assign it a smart texture!
-					self.obj[2] = new Rotator()
-						.id('simpleBox')
-						.depth(1)
-						.width(50)
-						.height(50)
-						.texture(gameTexture[1])
-						.translateTo(0, -50, 0)
-						.mount(self.obj[0]);
+					self.tileMap = {
+						data:
+							[
+								[[0,1], [0,1]],
+								[[0,1], [0,1]]
+							]
+					};
+
+					/*self.textureMap.paintTile(1,1,0,1);
+					self.textureMap.paintTile(1,2,0,1);
+					self.textureMap.paintTile(1,3,0,1);
+					self.textureMap.paintTile(1,4,0,1);*/
+					self.textureMap.loadMap(self.tileMap).mount(self.scene1);
 				}
 			});
 		});
