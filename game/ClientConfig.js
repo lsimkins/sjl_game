@@ -3,9 +3,12 @@ var igeClientConfig = {
 		/* Your custom game JS scripts */
 		'./gameClasses/ClientNetworkEvents.js',
 		'./gameClasses/Rotator.js',
+		'./gameClasses/Player.js',
+		'./gameClasses/PlayerControlComponent.js',
 		/* Standard game scripts */
 		'./client.js',
-		'./index.js'
+		'./index.js',
+		'./mapData.js'
 	]
 };
 
