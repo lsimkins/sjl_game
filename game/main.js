@@ -44,6 +44,12 @@ var Main = IgeEntity.extend({
       //.drawBounds(true)
       .mount(ige);
 
+    self.startLevel1();
+  },
+
+  startLevel1: function() {
+    var self = this;
+
     // Floor Texture
     var floorTexData = self.convertTiledLayerToIge(MapData.level1.layers.floor);
 
@@ -95,8 +101,85 @@ var Main = IgeEntity.extend({
     self.nextLevelTrigger = new OverlapTrigger()
       .target(self.player)
       .onTrigger(function() {
-        console.log('next level');
         self.player.unMount();
+        self.clean();
+        self.startLevel2();
+      })
+      .width(64)
+      .height(64)
+      .layer(5)
+      .translateTo(464,300,0)
+      .drawBounds(true);
+
+    self.unlockTrigger = new KeyTrigger()
+      .onTrigger(function() {
+        self.nextLevelTrigger.mount(self.gameScene);
+      })
+      .target(self.player)
+      .width(80)
+      .height(64)
+      .layer(5)
+      .translateTo(450,190,0)
+      .mount(self.gameScene)
+      .drawBounds(true);
+  },
+
+  startLevel2: function() {
+    var self = this;
+
+    // Floor Texture
+    var floorTexData = self.convertTiledLayerToIge(MapData.level1.layers.floor);
+
+    self.floorMap = new IgeTextureMap(32, 32)
+      .layer(1)
+      .loadMap({data: floorTexData})
+      .mount(self.backScene);
+
+    self.floorMap.addTexture(ige.textures.tex1);
+
+    // Wall Texture
+    var wallTexData = self.convertTiledLayerToIge(MapData.level1.layers.walls);
+
+    self.wallMap = new IgeTextureMap(32, 32)
+      .layer(2)
+      .loadMap({data: wallTexData})
+      .mount(self.backScene);
+
+    self.wallMap.addTexture(ige.textures.tex1);
+
+    // Object Texture
+    var objectTexData = self.convertTiledLayerToIge(MapData.level1.layers.objects);
+
+    self.objectMap = new IgeTextureMap(32, 32)
+      .layer(3)
+      .loadMap({data: objectTexData})
+      .mount(self.backScene);
+
+    self.objectMap.addTexture(ige.textures.tex1);
+
+    self.vp1.camera.panTo(new IgePoint(500,200,0));
+
+    // Occupied tilemap
+    var occupiedTiles = self.mergeTileData(wallTexData, objectTexData);
+
+    self.occupiedMap = new IgeTextureMap(32,32)
+      .loadMap({data: occupiedTiles});
+
+    ige.box2d.staticsFromMap(self.occupiedMap);
+
+    // Player
+    self.player = new Player()
+      .mount(self.gameScene)
+      .drawBounds(true)
+      .translateTo(300,300,0)
+      .setType(0)
+      .addComponent(PlayerComponent);
+
+    self.nextLevelTrigger = new OverlapTrigger()
+      .target(self.player)
+      .onTrigger(function() {
+        self.player.unMount();
+        self.startLevel2();
       })
       .width(64)
       .height(64)
@@ -148,6 +231,21 @@ var Main = IgeEntity.extend({
     }
 
     return newTileData;
+  },
+
+  clean: function() {
+    var self = this;
+
+    // Floor Texture
+    var floorTexData = self.convertTiledLayerToIge(MapData.level1.layers.floor);
+
+    self.floorMap.destroy();
+    self.wallMap.destroy();
+    self.objectMap.destroy();
+    self.occupiedMap.destroy();
+    self.player.destroy();
+    self.nextLevelTrigger.destroy();
+    self.unlockTrigger.destroy();
   }
 });
 
