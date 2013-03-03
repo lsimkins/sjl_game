@@ -7,6 +7,10 @@ var igeClientConfig = {
 
 		'./main.js',
 
+		/* Triggers */
+		'./gameClasses/triggers/OverlapTrigger.js',
+		'./gameClasses/triggers/KeyTrigger.js',
+
 		/* Standard game scripts */
 		'./client.js',
 		'./index.js',

@@ -41,6 +41,7 @@ var Main = IgeEntity.extend({
       .id('vp1')
       .autoSize(true)
       .scene(self.mainScene)
+      .drawBounds(true)
       .mount(ige);
 
     // Floor Texture
@@ -77,7 +78,7 @@ var Main = IgeEntity.extend({
 
     // Occupied tilemap
     var occupiedTiles = self.mergeTileData(wallTexData, objectTexData);
-    
+
     self.occupiedMap = new IgeTextureMap(32,32)
       .loadMap({data: occupiedTiles});
 
@@ -87,9 +88,33 @@ var Main = IgeEntity.extend({
     self.player = new Player()
       .mount(self.gameScene)
       .drawBounds(true)
-      .translateTo(200,200,0)
+      .translateTo(300,300,0)
       .setType(0)
       .addComponent(PlayerComponent);
+
+    self.nextLevelTrigger = new OverlapTrigger()
+      .target(self.player)
+      .onTrigger(function() {
+        console.log('next level');
+        self.player.unMount();
+      })
+      .width(64)
+      .height(64)
+      .layer(5)
+      .translateTo(464,300,0)
+      .drawBounds(true);
+
+    self.unlockTrigger = new KeyTrigger()
+      .onTrigger(function() {
+        self.nextLevelTrigger.mount(self.gameScene);
+      })
+      .target(self.player)
+      .width(80)
+      .height(64)
+      .layer(5)
+      .translateTo(450,190,0)
+      .mount(self.gameScene)
+      .drawBounds(true);
   },
 
   convertTiledLayerToIge: function(layer) {

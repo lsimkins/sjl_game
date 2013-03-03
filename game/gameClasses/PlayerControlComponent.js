@@ -31,7 +31,7 @@ var PlayerComponent = IgeClass.extend({
 	_keyUp: function (event, keyCode) {
 		if (keyCode === ige.input.key.space) {
 			// Change the character
-			this._entity._characterType++;
+			//this._entity._characterType++;
 
 			if (this._entity._characterType > 7) {
 				this._entity._characterType = 0;

@@ -9,7 +9,7 @@ var Client = IgeClass.extend({
 
 		this.obj = [];
 
-		ige.input.debug(true);
+		//ige.input.debug(true);
 
 		// Namespace textures so they can be accessed globally.
 		ige.textures = {};
