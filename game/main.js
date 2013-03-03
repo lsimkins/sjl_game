@@ -41,7 +41,7 @@ var Main = IgeEntity.extend({
       .id('vp1')
       .autoSize(true)
       .scene(self.mainScene)
-      //.drawBounds(true)
+      .drawBounds(true)
       .mount(ige);
 
     self.startLevel1();
@@ -55,7 +55,7 @@ var Main = IgeEntity.extend({
 
     self.floorMap = new IgeTextureMap(32, 32)
       .layer(1)
-      .loadMap({data: floorTexData})
+      .loadMap({data: floorTexData}) // Hacked method of getting texmap to take array
       .mount(self.backScene);
 
     self.floorMap.addTexture(ige.textures.tex1);
@@ -80,7 +80,6 @@ var Main = IgeEntity.extend({
 
     self.objectMap.addTexture(ige.textures.tex1);
 
-    self.vp1.camera.panTo(new IgePoint(500,200,0));
 
     // Occupied tilemap
     var occupiedTiles = self.mergeTileData(wallTexData, objectTexData);
@@ -98,18 +97,8 @@ var Main = IgeEntity.extend({
       .setType(0)
       .addComponent(PlayerComponent);
 
-    self.nextLevelTrigger = new OverlapTrigger()
-      .target(self.player)
-      .onTrigger(function() {
-        self.player.unMount();
-        self.clean();
-        self.startLevel2();
-      })
-      .width(64)
-      .height(64)
-      .layer(5)
-      .translateTo(464,300,0)
-      .drawBounds(true);
+    self.vp1.camera.lookAt(self.player);
+    self.vp1.camera.trackTranslate(self.player, 10);
 
     self.unlockTrigger = new KeyTrigger()
       .onTrigger(function() {
@@ -121,6 +110,19 @@ var Main = IgeEntity.extend({
       .layer(5)
       .translateTo(450,190,0)
       .mount(self.gameScene)
+      .drawBounds(true);
+
+    self.nextLevelTrigger = new OverlapTrigger()
+      .target(self.player)
+      .onTrigger(function() {
+        self.player.unMount();
+        self.clean();
+        self.startLevel2();
+      })
+      .width(64)
+      .height(64)
+      .layer(5)
+      .translateTo(464,300,0)
       .drawBounds(true);
   },
 

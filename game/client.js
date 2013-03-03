@@ -4,10 +4,7 @@ var Client = IgeClass.extend({
 		ige.showStats(1);
 
 		// Load our textures
-		var self = this,
-			gameTexture = [];
-
-		this.obj = [];
+		var self = this;
 
 		//ige.input.debug(true);
 

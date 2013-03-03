@@ -8,7 +8,7 @@ var KeyTrigger = IgeEntity.extend({
     this._action = null;
 
     var self = this;
-    ige.input.on('keyUp', function (event, keyCode) { 
+    ige.input.on('keyUp', function (event, keyCode) {
       if (keyCode == ige.input.key.space && self._action) {
         if (self.aabb().rectIntersect(self._target.aabb())) {
           self._action();
