@@ -14,7 +14,7 @@ var Character = IgeEntityBox2d.extend({
 			.addComponent(IgeAnimationComponent);
 
 		// Load the character texture file
-		this._characterTexture = ige.textures.char1;
+		this._characterTexture = new IgeCellSheet('assets/rat.png', 4, 4);//ige.textures.char1;
 
 		self.imageEntity
 			.id(self.id() + '_image')
@@ -22,7 +22,9 @@ var Character = IgeEntityBox2d.extend({
 			.drawBoundsData(false)
 			.originTo(0.5, 0.65, 0.5)
 			.texture(self._characterTexture)
-			.dimensionsFromCell()
+			.width(16)
+			.height(16)
+			//.dimensionsFromCell()
 			.mount(self);
 	},
 
@@ -36,11 +38,16 @@ var Character = IgeEntityBox2d.extend({
 	setType: function (type) {
 		switch (type) {
 			case 0:
-				this.imageEntity.animation.define('walkDown', [19, 20, 21, 22, 23, 24, 25, 26, 27], 8, -1)
+				this.imageEntity.animation.define('walkDown', [9,10,11,12], 16, -1)
+					.animation.define('walkLeft', [5,6,7,8], 16, -1)
+					.animation.define('walkRight', [1,2,3,4], 16, -1)
+					.animation.define('walkUp', [13,14,15,16], 16, -1)
+					.cell(1);
+				/*this.imageEntity.animation.define('walkDown', [19, 20, 21, 22, 23, 24, 25, 26, 27], 8, -1)
 					.animation.define('walkLeft', [10, 11, 12, 13, 14, 15, 16, 17, 18], 8, -1)
 					.animation.define('walkRight', [28, 29, 30, 31], 8, -1)
 					.animation.define('walkUp', [1, 2, 3, 4, 5, 6, 7, 8, 9], 8, -1)
-					.cell(1);
+					.cell(1);*/
 
 				this._restCell = 1;
 				break;

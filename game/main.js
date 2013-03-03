@@ -41,7 +41,7 @@ var Main = IgeEntity.extend({
       .id('vp1')
       .autoSize(true)
       .scene(self.mainScene)
-      .drawBounds(true)
+      //.drawBounds(true)
       .mount(ige);
 
     // Floor Texture
