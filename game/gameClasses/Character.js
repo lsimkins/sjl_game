@@ -14,22 +14,16 @@ var Character = IgeEntityBox2d.extend({
 			.addComponent(IgeAnimationComponent);
 
 		// Load the character texture file
-		if (!ige.isServer) {
-			this._characterTexture = new IgeCellSheet('assets/maskman.png', 9, 4);
+		this._characterTexture = ige.textures.char1;
 
-			// Wait for the texture to load
-			this._characterTexture.on('loaded', function () {
-				// Create a character entity as a child of this container
-				self.imageEntity
-					.id(self.id() + '_image')
-					.drawBounds(false)
-					.drawBoundsData(false)
-					.originTo(0.5, 0.65, 0.5)
-					.texture(self._characterTexture)
-					.dimensionsFromCell()
-					.mount(self);
-			}, false, true);
-		}
+		self.imageEntity
+			.id(self.id() + '_image')
+			.drawBounds(false)
+			.drawBoundsData(false)
+			.originTo(0.5, 0.65, 0.5)
+			.texture(self._characterTexture)
+			.dimensionsFromCell()
+			.mount(self);
 	},
 
 	/**
