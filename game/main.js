@@ -75,11 +75,19 @@ var Main = IgeEntity.extend({
 
     self.vp1.camera.panTo(new IgePoint(500,200,0));
 
+    // Occupied tilemap
+    var occupiedTiles = self.mergeTileData(wallTexData, objectTexData);
+    
+    self.occupiedMap = new IgeTextureMap(32,32)
+      .loadMap({data: occupiedTiles});
+
+    ige.box2d.staticsFromMap(self.occupiedMap);
+
     // Player
     self.player = new Player()
       .mount(self.gameScene)
       .drawBounds(true)
-      .translateTo(100,100,0)
+      .translateTo(200,200,0)
       .setType(0)
       .addComponent(PlayerComponent);
   },
@@ -100,6 +108,21 @@ var Main = IgeEntity.extend({
     }
 
     return convertedLayer;
+  },
+
+  mergeTileData: function(tiles1, tiles2) {
+    var maxHeight = Math.max(tiles1.length, tiles2.length);
+    var maxWidth = Math.max(tiles1[0].length, tiles2[0].length);
+
+    var newTileData = [];
+    for (var i=0; i<maxHeight; i++) {
+      newTileData[i] = [];
+      for (var j=0; j<maxWidth; j++) {
+        newTileData[i][j] = tiles1[i][j] || tiles2[i][j] || null;
+      }
+    }
+
+    return newTileData;
   }
 });
 
