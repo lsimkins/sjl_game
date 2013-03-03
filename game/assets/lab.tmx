@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="32" height="32" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="laboratory" tilewidth="32" tileheight="32">
+  <image source="./laboratory.png" width="512" height="512"/>
+ </tileset>
+ <layer name="Floor" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztzjERADAMA7HwCZFCCH8kXYqhHqK/02x3VTUA8FWqeZL7WzvpA5Kk9V2F+lHx
+  </data>
+ </layer>
+ <layer name="Walls" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztz6ENACAMRNEa6ASECYD9N2xxiApMq/5LTv+cCK7m60XToD9yboUmffr06T+Wbxft5NwCAADABwNDHwZd
+  </data>
+ </layer>
+ <layer name="Objects" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt0U8rBVEcxvHrBSAbqytegGJhSWwRli4W7Mjm2lGsUBQbIhYWLPxZWCAiKcJKirUN74AXIPlOPVO/TmOmq+gufk99mjMz55znNJPLecolBczKHOal8Mv9Ko0qVGfMX8Gq+iKfWMN6yhmmg/smyaMOl+ZdPRpS+nfQhW50mvFuwtwNbGJG9xUYxZj6G7XHg1mzjeaM/kEMYcCMk/r3cYAljKt/ElOmP9rjxaw5yug/xglaUKvrKc4S5p7jIuhfwKL6W9EWrGlHR0p/9L9vcWfca78wexJ//2vc4BVvetaDXqMvpfun82RlWdcnPOMdH7jCMEb0Ph5vlXiGUvMljyhiQs/j8eE/9NvUBOP+P+73eDwej8fj8ZR3vgH3/jvs
+  </data>
+ </layer>
+ <layer name="Tile Layer 4" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20PBxQAAADwbhAAAAE=
+  </data>
+ </layer>
+</map>
