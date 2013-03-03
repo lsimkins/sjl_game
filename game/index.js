@@ -6,6 +6,7 @@ var Game = IgeClass.extend({
 		ige = new IgeEngine();
 
 		if (!ige.isServer) {
+			sjl = new Main();
 			ige.client = new App();
 		}
 
